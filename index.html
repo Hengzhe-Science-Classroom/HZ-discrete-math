@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discrete Mathematics — Interactive</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <button id="sidebar-toggle" aria-label="Toggle sidebar">&#9776;</button>
+        <aside id="sidebar">
+            <div id="sidebar-header">
+                <h1>Discrete Mathematics</h1>
+                <p class="author">Rosen / Lehman-Leighton-Meyer / Lov&aacute;sz</p>
+                <div id="progress-container">
+                    <div id="progress-bar"><div id="progress-fill"></div></div>
+                    <span id="progress-text">0%</span>
+                </div>
+            </div>
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Search topics...">
+            </div>
+            <nav id="chapter-nav"></nav>
+            <div id="sidebar-footer"><p class="copyright-notice" style="font-size:0.7rem;color:#888;margin-top:12px;text-align:center;">&copy; 2026 Hengzhe Zhao &middot; AGPL-3.0 &amp; Commercial</p>
+                <button id="reset-progress">Reset Progress</button>
+            </div>
+        </aside>
+        <main id="main-content">
+            <div id="welcome-screen">
+                <div class="welcome-hero">
+                    <h1>Discrete Mathematics</h1>
+                    <h2>离散数学 · Interactive</h2>
+                    <p class="welcome-description">
+                        From logic and sets to graphs and counting. The mathematical foundations
+                        of computer science, brought to life through interactive truth tables,
+                        animated graph algorithms, and combinatorial visualizations.
+                    </p>
+                </div>
+                <div class="roadmap">
+                    <h3>What You'll Explore</h3>
+                    <div class="roadmap-parts">
+                        <div class="roadmap-part">
+                            <h4>Part A: Logic &amp; Proofs</h4>
+                            <ul>
+                                <li>Ch 0: Propositional Logic</li>
+                                <li>Ch 1: Predicate Logic &amp; Quantifiers</li>
+                                <li>Ch 2: Proof Techniques</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part B: Sets &amp; Relations</h4>
+                            <ul>
+                                <li>Ch 3: Sets &amp; Set Operations</li>
+                                <li>Ch 4: Relations</li>
+                                <li>Ch 5: Functions</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part C: Counting</h4>
+                            <ul>
+                                <li>Ch 6: Basic Counting Principles</li>
+                                <li>Ch 7: Pigeonhole &amp; Inclusion-Exclusion</li>
+                                <li>Ch 8: Recurrence Relations</li>
+                                <li>Ch 9: Generating Functions</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part D: Graph Theory</h4>
+                            <ul>
+                                <li>Ch 10: Graphs &amp; Their Properties</li>
+                                <li>Ch 11: Trees</li>
+                                <li>Ch 12: Graph Algorithms</li>
+                                <li>Ch 13: Planar Graphs &amp; Coloring</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part E: Number Theory</h4>
+                            <ul>
+                                <li>Ch 14: Divisibility &amp; Primes</li>
+                                <li>Ch 15: Modular Arithmetic</li>
+                                <li>Ch 16: RSA Cryptography</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part F: Advanced Topics</h4>
+                            <ul>
+                                <li>Ch 17: Boolean Algebra &amp; Circuits</li>
+                                <li>Ch 18: Automata &amp; Formal Languages</li>
+                                <li>Ch 19: Computational Complexity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <p class="welcome-start">Select a chapter from the sidebar to begin your journey into discrete mathematics!</p>
+            </div>
+            <div id="chapter-content" style="display:none;">
+                <div id="chapter-header">
+                    <div id="chapter-number-badge"></div>
+                    <h1 id="chapter-title"></h1>
+                    <p id="chapter-subtitle"></p>
+                </div>
+                <div id="section-tabs"></div>
+                <article id="section-content"></article>
+                <div id="exercises-panel" style="display:none;">
+                    <h3>Exercises</h3>
+                    <div id="exercises-list"></div>
+                </div>
+                <div id="chapter-nav-buttons">
+                    <button id="prev-btn" disabled>&larr; Previous</button>
+                    <span id="section-indicator"></span>
+                    <button id="next-btn">Next &rarr;</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="viz-engine.js"></script>
+
+    <script>
+    window.CHAPTER_MANIFEST = [
+        {number:0,  id:'ch00', title:'Propositional Logic',                        file:'ch00-propositional-logic'},
+        {number:1,  id:'ch01', title:'Predicate Logic & Quantifiers',              file:'ch01-predicate-logic'},
+        {number:2,  id:'ch02', title:'Proof Techniques',                           file:'ch02-proof-techniques'},
+        {number:3,  id:'ch03', title:'Sets & Set Operations',                      file:'ch03-sets'},
+        {number:4,  id:'ch04', title:'Relations',                                  file:'ch04-relations'},
+        {number:5,  id:'ch05', title:'Functions',                                  file:'ch05-functions'},
+        {number:6,  id:'ch06', title:'Basic Counting Principles',                  file:'ch06-counting'},
+        {number:7,  id:'ch07', title:'Pigeonhole & Inclusion-Exclusion',           file:'ch07-pigeonhole'},
+        {number:8,  id:'ch08', title:'Recurrence Relations',                       file:'ch08-recurrences'},
+        {number:9,  id:'ch09', title:'Generating Functions',                       file:'ch09-generating-functions'},
+        {number:10, id:'ch10', title:'Graphs & Their Properties',                  file:'ch10-graphs'},
+        {number:11, id:'ch11', title:'Trees',                                      file:'ch11-trees'},
+        {number:12, id:'ch12', title:'Graph Algorithms',                           file:'ch12-graph-algorithms'},
+        {number:13, id:'ch13', title:'Planar Graphs & Coloring',                   file:'ch13-planar-coloring'},
+        {number:14, id:'ch14', title:'Divisibility & Primes',                      file:'ch14-divisibility'},
+        {number:15, id:'ch15', title:'Modular Arithmetic',                         file:'ch15-modular'},
+        {number:16, id:'ch16', title:'RSA Cryptography',                           file:'ch16-rsa'},
+        {number:17, id:'ch17', title:'Boolean Algebra & Circuits',                 file:'ch17-boolean'},
+        {number:18, id:'ch18', title:'Automata & Formal Languages',                file:'ch18-automata'},
+        {number:19, id:'ch19', title:'Computational Complexity',                   file:'ch19-complexity'},
+    ];
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
